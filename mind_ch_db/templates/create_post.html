@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+{% csrf_token %}
+<main>
+<section>
+    <h2>投稿をしよう！</h2>
+    <form class="create_post" method="post">
+        
+        <table>
+            <tr>
+                <th>ジャンル</th><td>{{form.genre_id}}</td>
+            </tr>
+            <tr>
+                <th>タイトル</th><td>{{form.post_title}}</td>
+            </tr>
+            <tr>
+                <th>テキスト</th><td>{{form.post_content}}</td>
+            </tr>
+        </table>
+        <button type="submit">投稿</button>
+    </form>
+</section>
+
+</main>
+{% endblock %}

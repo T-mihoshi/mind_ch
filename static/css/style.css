@@ -1,0 +1,59 @@
+h1{
+    color: rgb(255, 139, 216);
+    text-align: center;
+}
+
+header{
+    width: auto;
+    height: 55px;
+    background-color: rgb(250, 209, 236);
+}
+
+nav{
+    padding-top: 15px;
+    text-align: center;
+}
+
+body{
+    margin: 0;
+}
+
+main{
+    padding: 20px;
+}
+
+p{
+    text-align: center;
+}
+
+
+.back_img{
+    background-image: url('../img/line1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+/*ここからindexゾーン*/
+
+.all_genre a{
+    width: 40px;
+}
+
+.post_info{
+    margin-bottom: 40px;
+}
+
+.edit_form{
+    margin-left: 0px;
+}
+
+.edit_form p{
+    text-align: start;
+}
+
+.create_post th{
+    min-width: 80px;
+    text-align: start;
+}
+

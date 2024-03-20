@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main>
+    <h1>プロフィール</h1>
+
+    <div><a href="{% url 'memo_list'%}"><p>メモを作成</p></a></div>
+    <div><a href="{% url 'good_list'%}"><p>いいね一覧</p></a></div>
+    <div><a href="{% url 'post_list'%}"><p>自分の投稿一覧</p></a></div>
+
+</main>
+
+{% endblock %}

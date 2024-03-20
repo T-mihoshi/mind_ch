@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>投稿内容</h1>
+<!-- post -->
+<div class="post_info">
+    <div><h2>タイトル</h2> {{ post_info.post_title }}</div>
+    -----------------------------------------------
+    <div>{{ post_info.post_content }}</div>
+    -----------------------------------------------
+    <div>
+    <form action="{% url 'good_toggle' post_info.id %}" method="post">
+    {% if user.is_authenticated %}    
+        {% csrf_token %}
+        <button type="submit">いいね☆</button>
+    {% endif %}
+    💛{{ good_count }}
+    </form>
+    {% for comment in comments %}
+        コメント
+        <div>{{ comment.comment }}　　💛{{comment.reaction_count }}</div>
+
+    {% endfor %}
+    </div>
+    <!-- その他のフィールドを表示 -->
+</div>
+
+{% endblock %}
+

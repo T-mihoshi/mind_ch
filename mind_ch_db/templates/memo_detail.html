@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ memo.title }}</title>
+</head>
+<body>
+    <h1>{{ memo.title }}</h1>
+    <p>{{ memo.content }}</p>
+    <p>作成日時: {{ memo.create_at }}</p>
+    <p>更新日時: {{ memo.update_at }}</p>
+    <!-- <a href="{% url 'memo_edit' memo.id %}">編集</a> -->
+    <a href="{% url 'memo_delete' memo.id %}">削除</a>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>メモ編集</title>
+</head>
+<body>
+    <h1>メモ編集</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="id_title">タイトル:</label><br>
+        <input type="text" id="id_title" name="title" value="{{ memo.title }}"><br>
+        <label for="id_content">内容:</label><br>
+        <textarea id="id_content" name="content">{{ memo.content }}</textarea><br>
+        <button type="submit">更新</button>
+    </form>
+</body>
+</html>
+{% endblock %}

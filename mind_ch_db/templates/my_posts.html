@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>login sample</h1>
+{% endblock %}
+
+
+
+
+
+
+<form method="post" action="{% url 'post_submit' %}">
+  {% csrf_token %}
+  <label for="post_title">タイトル:</label>
+  <input type="text" name="post_title" required>
+
+  <label for="post_content">内容:</label>
+  <textarea name="post_content" rows="4" required></textarea>
+
+  <label for="genre">ジャンル:</label>
+  <select name="genre">
+    {% for genre in genres %}
+      <option value="{{ genre.id }}">{{ genre.genre_name }}</option>
+    {% endfor %}
+  </select>
+
+  <button type="submit">投稿する</button>
+</form>

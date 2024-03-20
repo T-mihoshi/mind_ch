@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main>
+    <h1>お気に入り</h1>
+    <section class="">
+        <!-- <h2>{{ post_info.post_title }}</h2> -->
+        {% for post_info in post_info_good %}
+            <p>{{ post_info.post_title }}</p>
+        {% endfor %}
+    </section>
+</main>
+
+<!-- {{good_list_show}} -->
+{% endblock %}

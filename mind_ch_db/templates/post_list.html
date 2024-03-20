@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post List</title>
+</head>
+<body>
+    <h2>Post List</h2>
+    <ul>
+        {% for post in posts %}
+            <a href="{% url 'posts_edit' post.id %}"><li>{{ post.post_title }}</li></a>
+            <p>{{ post.post_content }}</p>
+            <p>{{ post.reaction_count }}</p>
+            <!-- 他の投稿情報も表示できるように適宜追加してください -->
+        {% empty %}
+            <li>No posts available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

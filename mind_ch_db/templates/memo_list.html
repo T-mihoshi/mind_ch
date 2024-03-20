@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+    <h1>メモ一覧</h1>
+    <ul>
+        {% for memo in memos %}
+            <li><a href="{% url 'memo_detail' memo.id %}">{{ memo.title }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'memo_create' %}">新規メモ作成</a>
+</body>
+</html>
+
+{% endblock %}

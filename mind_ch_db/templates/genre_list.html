@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>ジャンル別投稿一覧</h1>
+{% for post_info in genres %}
+    <p>{{ post_info.post_title }}</p>
+{% endfor %}
+{% endblock %}
