@@ -3,7 +3,8 @@
 <body>
     <h1>メモ一覧</h1>
     <ul>
-        {% for memo in memos %}
+        {% csrf_token %}
+        {% for memo in memoss %}
             <li><a href="{% url 'memo_detail' memo.id %}">{{ memo.title }}</a></li>
         {% endfor %}
     </ul>

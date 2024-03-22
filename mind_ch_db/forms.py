@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from mind_ch_db.models import Profile
 from .models import Memo
 from .models import PostInfo
+from .models import Comment
 
 
 
@@ -45,6 +46,7 @@ class PostInfoForm(forms.ModelForm):
             'post_title': forms.TextInput(attrs={'placeholder': '名前'})
         }
     
+
 #投稿編集
 class PostInfoForm(forms.ModelForm):
     class Meta:
@@ -52,6 +54,13 @@ class PostInfoForm(forms.ModelForm):
         fields = ['genre_id', 'post_title', 'post_content']  # 編集可能なフィールドを指定します
 
 
+#投稿に対してコメントする
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment']
+    
+    
     """
     confirm_password = forms.CharField(label='パスワード再入力', widget=forms.PasswordInput())
 

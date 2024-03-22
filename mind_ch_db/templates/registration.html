@@ -4,6 +4,6 @@
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ user_form.as_p }}
-    <input type="submit" value="登録">
+    <div class="btn_center"><input class="submitbtn" type="submit" value="登録"></div>
 </form>
 {% endblock %}

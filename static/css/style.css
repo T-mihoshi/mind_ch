@@ -1,12 +1,64 @@
 h1{
-    color: rgb(255, 139, 216);
+    color: rgb(230, 110, 190);
     text-align: center;
+}
+
+h2{
+    color: #636363;
+    margin-left: 10px;
+    font-family: sans-serif;
+}
+
+table th, tr{
+    margin: 10px;
 }
 
 header{
     width: auto;
     height: 55px;
     background-color: rgb(250, 209, 236);
+}
+
+nav {
+    background-color: #ffccff; /* ナビゲーションバーの背景色 */
+    padding: 10px 20px; /* ナビゲーションバーの内側の余白 */
+}
+
+nav a {
+    color: #ff0066; /* ナビゲーションリンクのテキスト色 */
+    text-decoration: none; /* ナビゲーションリンクの下線を削除 */
+    margin-right: 20px; /* ナビゲーションリンク間の水平方向のスペース */
+    transition: color 0.3s; /* ナビゲーションリンクのテキスト色が変わるアニメーション */
+    font-family: 'Nunito', cursive; /* 可愛らしいフォントを指定 */
+}
+
+nav a:hover {
+    color: #ff3399; /* ナビゲーションリンクのホバー時のテキスト色 */
+}
+
+
+.login_name_box{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.login_name_box div{
+    border-bottom: 3px solid;
+    border-image: linear-gradient(to right, #ecb0e0, #ecb0e0) 0.8;
+    padding-bottom: 5px; /* 下線とテキストの間のスペース */
+    font-size: 24px; /* タイトルのフォントサイズ */
+}
+
+.login_name{
+    font-size: 25px;
+    color:rgb(27, 27, 27);
+    text-align: end;
+}
+
+.neko_center{
+    display: flex;
+    justify-content: center;
 }
 
 nav{
@@ -35,13 +87,39 @@ p{
 }
 
 /*ここからindexゾーン*/
+.mind_ch_title{
+    color: #000000;
+}
+
+
+.login_btn{
+    display: flex;
+    justify-content: center;
+}
+
+
+.genre_title{
+    text-align: center;
+}
+
+
+.all_genre{
+    display: flex;
+    justify-content: center;
+}
 
 .all_genre a{
-    width: 40px;
+    margin-right: 10px;
 }
 
 .post_info{
     margin-bottom: 40px;
+    margin-left: 20%;
+}
+
+.comment_add{
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 
 .edit_form{
@@ -57,3 +135,70 @@ p{
     text-align: start;
 }
 
+
+.submitbtn{
+    width: 150px;
+    height: 40px;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #e984bf;
+    color: #fff;
+    padding: 10px 30px;
+    font-size: 13px;
+}
+
+.submitbtn:after{
+    display: block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 6px;
+    height: 6px;
+    margin: -4px 0 0 0;
+    border-top: solid 2px #fff;
+    border-right: solid 2px #fff;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.post_list{
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffddf1;
+    border-radius: 50%;
+    text-decoration: none !important;
+}
+
+.post_list a{
+    text-decoration: none;
+    color: #2b2b2b;
+}
+
+.post_list_title{
+    display: flex;
+    align-items: center;
+}
+
+.post_list_title li{
+    margin-right: 30px;
+}
+
+.red{
+    color: #ff5757;
+    font-size: 25px;
+}
+
+.good_count{
+    font-size: 22px;
+}
+
+.edit_form div{
+    margin-top: 20px;
+}
+
+.btn_center{
+    display: flex;
+    justify-content: center;
+}

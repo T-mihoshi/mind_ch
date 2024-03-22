@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Memo, Genre
 from .forms import MemoForm
 from .forms import PostInfoForm
+from .forms import CommentForm
 
 
 # Create your views here.
@@ -101,14 +102,45 @@ def index(request):
     genres_all = Genre.objects.all()#ジャンルタイトル一覧
     return render(request, 'index.html', {'post_infos': post_infos, 'genres_all': genres_all})
 
-
-#詳細情報（コメント）
+#投稿へのコメント
 def post_info_detail(request, post_info_id):
     post_info = get_object_or_404(PostInfo, pk=post_info_id)
     comments = Comment.objects.filter(Post_info_id=post_info_id)
     good_count = Good.objects.filter(post_info_id=post_info_id).count()
-    return render(request, 'comment.html', {'post_info': post_info, 'comments': comments, 'good_count': good_count})
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.Post_info_id = post_info
+            comment.save()
+            return redirect('post_info_detail',post_info_id=post_info_id)
+    else:
+        form = CommentForm()
+    return render(request, 'comment.html', {
+        'post_info': post_info,
+        'comments': comments,
+        'form': form,
+        'good_count': good_count,
+        })
 
+
+#投稿一覧
+def post_list(request):
+    posts = PostInfo.objects.all()
+    return render(request, 'post_list.html', {'posts': posts})
+
+
+#投稿を編集
+def posts_edit(request, post_id):
+    post = get_object_or_404(PostInfo, pk=post_id)
+    if request.method == 'POST':
+        form = PostInfoForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post_list')  # 編集後に投稿一覧ページにリダイレクト
+    else:
+        form = PostInfoForm(instance=post)
+    return render(request, 'posts_edit.html', {'form': form})
 
 #いいね☆機能
 from .models import Good
@@ -121,9 +153,10 @@ def good_toggle(request, post_info_id):
     return redirect('post_info_detail', post_info_id=post_info_id)
 
 #メモ機能
+
 def memo_list(request):
-    memos = Memo.objects.all()
-    return render(request, 'memo_list.html', {'memos': memos})
+    memoss = Memo.objects.all()
+    return render(request, 'memo_list.html', {'memoss': memoss})
 
 def memo_detail(request, memo_id):
     memo = get_object_or_404(Memo, pk=memo_id)
@@ -157,6 +190,8 @@ def memo_delete(request, memo_id):
     memo.delete()
     return redirect('memo_list')
 
+
+#いいね一覧
 def good_list(request):
     user = request.user
     goods = Good.objects.filter(user_id=user).select_related('post_info_id')
@@ -178,26 +213,6 @@ def create_post(request):
     else:
         form = PostInfoForm()
     return render(request, 'create_post.html', {'form': form})
-
-#投稿一覧
-def post_list(request):
-    posts = PostInfo.objects.all()
-    return render(request, 'post_list.html', {'posts': posts})
-
-
-#投稿を編集
-def posts_edit(request, post_id):
-    post = get_object_or_404(PostInfo, pk=post_id)
-    if request.method == 'POST':
-        form = PostInfoForm(request.POST, instance=post)
-        if form.is_valid():
-            form.save()
-            return redirect('post_list')  # 編集後に投稿一覧ページにリダイレクト
-    else:
-        form = PostInfoForm(instance=post)
-    return render(request, 'posts_edit.html', {'form': form})
-
-
 
 """
 from .models import Good

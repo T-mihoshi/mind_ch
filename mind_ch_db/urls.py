@@ -29,9 +29,6 @@ urlpatterns = [
     path('', index, name='index'),
     path('post-info/<int:post_info_id>/', post_info_detail, name='post_info_detail'),
 
-
-
-
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
@@ -46,8 +43,7 @@ urlpatterns = [
     path('memo/<int:memo_id>/delete/', views.memo_delete, name='memo_delete'),
     path('genre_list/<int:genre_id>/', views.genre_list, name='genre_list'),
     path('post_list', views.post_list, name='post_list'),
-path('posts/<int:post_id>/edit/', views.posts_edit, name='posts_edit'),
-
+    path('posts/<int:post_id>/edit/', views.posts_edit, name='posts_edit'),
 ]
 
 

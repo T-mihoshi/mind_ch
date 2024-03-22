@@ -12,10 +12,18 @@
     <form action="{% url 'good_toggle' post_info.id %}" method="post">
     {% if user.is_authenticated %}    
         {% csrf_token %}
-        <button type="submit">いいね☆</button>
+        <button class="submitbtn" type="submit">いいね☆</button>
     {% endif %}
-    💛{{ good_count }}
+    <span class="red">♥</span>{{ good_count }}
     </form>
+>
+
+    <form method="post" action="{% url 'post_info_detail' post_info.id %}">
+        {% csrf_token %}
+        <div class="comment_add">コメント{{ form.comment }}</div>
+        <div><button class="submitbtn" type="submit">コメントする</button></div>
+    </form>
+
     {% for comment in comments %}
         コメント
         <div>{{ comment.comment }}　　💛{{comment.reaction_count }}</div>

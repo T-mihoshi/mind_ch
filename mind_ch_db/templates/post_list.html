@@ -1,20 +1,30 @@
 <!DOCTYPE html>
+{% extends "base.html" %}
+{% block content %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Post List</title>
 </head>
 <body>
-    <h2>Post List</h2>
+    <h2>自分の投稿一覧</h2>
     <ul>
         {% for post in posts %}
-            <a href="{% url 'posts_edit' post.id %}"><li>{{ post.post_title }}</li></a>
-            <p>{{ post.post_content }}</p>
-            <p>{{ post.reaction_count }}</p>
-            <!-- 他の投稿情報も表示できるように適宜追加してください -->
+        <div class="post_list">
+            <a href="{% url 'posts_edit' post.id %}">
+                <div class="post_list_title">
+                    <li>{{ post.post_title }}</li>
+                    <p><span class="red">♥</span><span class="good_count">{{ post.reaction_count }}</span></p>
+                </div>
+                <p>{{ post.post_content }}</p>
+            </a>
+        </div>
         {% empty %}
             <li>No posts available.</li>
         {% endfor %}
     </ul>
 </body>
 </html>
+
+{% endblock %}

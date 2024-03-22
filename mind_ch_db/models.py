@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+
+#ここからテーブル定義
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     website = models.URLField(blank=True, null=True)
@@ -16,22 +18,23 @@ class Good(models.Model):
         'postinfo', on_delete=models.CASCADE)
     user_id = models.ForeignKey(
         User, on_delete=models.CASCADE)
-    creat_at = models.DateTimeField(default=timezone.datetime.now)
+    create_at = models.DateTimeField(default=timezone.datetime.now)
     update_at = models.DateTimeField(default=timezone.datetime.now)
 
 
-#ここからテーブル定義
 class User(models.Model):
     user_name = models.CharField(max_length=128)
     password = models.CharField(max_length=128)
     create_at = models.DateTimeField(default=timezone.datetime.now)
     update_at = models.DateTimeField(default=timezone.datetime.now)
 
+
 #投稿
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     create_at = models.DateTimeField(default=timezone.datetime.now)
+
 
 class PostInfo(models.Model):
     genre_id = models.ForeignKey(
@@ -47,26 +50,25 @@ class Comment(models.Model):
     Post_info_id = models.ForeignKey(
         'postinfo', on_delete=models.CASCADE)
     comment = models.CharField(max_length=300)
-    reaction_count = models.IntegerField()
+    reaction_count = models.IntegerField(default=0)
     create_at = models.DateTimeField(default=timezone.datetime.now)
     update_at = models.DateTimeField(default=timezone.datetime.now)
 
+
 class Genre(models.Model):
     genre_name = models.CharField(max_length=30)
-    creat_at = models.DateTimeField(default=timezone.datetime.now)
+    create_at = models.DateTimeField(default=timezone.datetime.now)
     update_at = models.DateTimeField(default=timezone.datetime.now)
     
     def __str__(self):
         return self.genre_name
+
 
 class Memo(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     create_at = models.DateTimeField(default=timezone.datetime.now)
     update_at = models.DateTimeField(default=timezone.datetime.now)
-
-    def __str__(self):
-        return self.title
 
 
 

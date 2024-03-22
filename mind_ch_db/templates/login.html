@@ -4,11 +4,9 @@
 <form method="POST">
     {% csrf_token %}
     {{ login_form.as_p }}
-    <input type="submit" value="ログイン">
+    <div class="login_btn"><input class="submitbtn" type="submit" value="ログイン"></div>
 </form>
 
 <p><a href="{% url 'password_reset' %}">パスワードを忘れた場合</a></p>
-<p><a href="{% url 'password_reset' %}">パス,忘れちゃったんじゃない？</a></p>
-
 
 {% endblock %}
