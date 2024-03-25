@@ -18,7 +18,6 @@
     {% for post_info in post_infos %}
     <div class="post_info">
         <div><a href="{% url 'post_info_detail' post_info.id %}">{{ post_info.post_title }}</a></div>
-        <div><a href="{% url 'good_list'%}">❤{{ post_info.reaction_count }}</a></div>
         
         <!-- その他の情報を表示 -->
     </div>
@@ -30,9 +29,11 @@
     <h3 class="genre_title">ジャンル別に投稿を見るのはこちら！</h3>
     <section class="all_genre">
     {% for genre in genres_all %}
-        <a href="{% url 'genre_list' genre.id %}">
-            #{{ genre.genre_name }}
-        </a>
+        <div>
+            <a href="{% url 'genre_list' genre.id %}">
+                #{{ genre.genre_name }}
+            </a>
+        </div>
     {% endfor %}
     </section>
 </main>

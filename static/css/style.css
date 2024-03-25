@@ -235,3 +235,12 @@ table{
     font-family: sans-serif;
     color: #3b3b3b;
 }
+
+.all_genre{
+    display: flex;
+    font-size: 14px;
+}
+
+.all_genre div{
+    width: auto;
+}

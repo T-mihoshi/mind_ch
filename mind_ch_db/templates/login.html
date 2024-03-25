@@ -6,8 +6,8 @@
 <p>{{ error_message }}</p>
 {% endif %}
 
-{% csrf_token %}
 <form method="POST">
+    {% csrf_token %}
     <table>
         <tr class="form_table">
             <th>名前</th><td>{{login_form.username}}</td>

@@ -24,6 +24,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('website', 'picture')
 
+#ログイン
 class LoginForm(forms.Form):
     username = forms.CharField(label='名前', max_length=150)
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
@@ -36,8 +37,6 @@ class MemoForm(forms.ModelForm):
    
 
 class PostInfoForm(forms.ModelForm):
-    
-
     class Meta:
         model = PostInfo
         fields = ['genre_id', 'post_title', 'post_content']

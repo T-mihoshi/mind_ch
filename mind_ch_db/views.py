@@ -76,7 +76,7 @@ def register(request):
 })"""
 
 
-"""def user_login(request):
+def user_login(request):
     login_form = LoginForm(request.POST or None)
     if login_form.is_valid():
         username = login_form.cleaned_data.get('username')
@@ -90,44 +90,7 @@ def register(request):
                 return HttpResponse('アカウントがアクティブではありません')
         else:
             return HttpResponse('ユーザーが存在しません')
-    return render(request, 'login.html', context={
-    'login_form': login_form
-})"""
-
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-
-from django.shortcuts import redirect
-
-from django.shortcuts import redirect
-
-def user_login(request):
-    if request.method == 'POST':
-        login_form = LoginForm(request.POST)
-        if login_form.is_valid():
-            username = login_form.cleaned_data.get('username')
-            password = login_form.cleaned_data.get('password')
-            if password:
-                user = authenticate(username=username, password=password)
-                if user:
-                    login(request, user)
-                    return redirect('index')
-                else:
-                    error_message = 'ユーザーが存在しません'
-            else:
-                error_message = 'パスワードを入力してください'
-        else:
-            error_message = 'ユーザー名を入力してください'
-    else:
-        login_form = LoginForm()
-        error_message = None
-
-    return render(request, 'login.html', context={
-        'login_form': login_form,
-        'error_message': error_message
-    })
+    return render(request, 'login.html', context={'login_form': login_form})
 
 @login_required
 def user_logout(request):
