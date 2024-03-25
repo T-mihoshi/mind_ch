@@ -22,7 +22,7 @@ class Good(models.Model):
     update_at = models.DateTimeField(default=timezone.datetime.now)
 
 
-class User(models.Model):
+class UserInfo(models.Model):
     user_name = models.CharField(max_length=128)
     password = models.CharField(max_length=128)
     create_at = models.DateTimeField(default=timezone.datetime.now)

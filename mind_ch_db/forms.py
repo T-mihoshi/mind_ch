@@ -9,7 +9,6 @@ from .models import Comment
 
 
 class UserForm(forms.ModelForm):
-    username = forms.CharField(label='名前')
     email = forms.EmailField(label='メールアドレス', required=False)
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
     

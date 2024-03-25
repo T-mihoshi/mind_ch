@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>ログイン画面</h1>
+
+{% if error_message %}
+<p>{{ error_message }}</p>
+{% endif %}
+
+{% csrf_token %}
 <form method="POST">
-    {% csrf_token %}
-    {{ login_form.as_p }}
+    <table>
+        <tr class="form_table">
+            <th>名前</th><td>{{login_form.username}}</td>
+        </tr>
+        <tr class="form_table">
+            <th>パスワード</th><td>{{login_form.password}}</td>
+        </tr>
+    </table>
     <div class="login_btn"><input class="submitbtn" type="submit" value="ログイン"></div>
 </form>
 

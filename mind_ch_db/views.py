@@ -39,21 +39,35 @@ def index(request):
     return render(request, 'index.html')
 def registration(request):
     return render(request, 'registration.html')
+def register(request):from django.shortcuts import render, redirect
+from .forms import UserForm, ProfileForm
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+
 def register(request):
-    user_form = UserForm(request.POST or None)
-    profile_form = ProfileForm(request.POST or None, request.FILES or None)
-    if user_form.is_valid() and profile_form.is_valid():
-        user = user_form.save()
-        user.set_password(user.password)
-        user.save()
-        profile = profile_form.save(commit=False)
-        profile.user = user
-        profile.save()
-    return render(request, 'registration.html', context={
-        'user_form': user_form,
-        'profile_form': profile_form,
-        'success_message': '登録が成功しました。',# 必要に応じて
-    })
+    error_message = ""
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            login(request, user)  # ユーザーをログインさせる
+            return redirect('index')
+        else:
+            # エラーメッセージの生成
+            if 'password1' in user_form.errors:
+                error_message = 'パスワードは8文字以上で入力してください。'
+            elif 'username' in user_form.errors:
+                error_message = '存在するユーザーです。'
+            else:
+                error_message = '入力が正しくありません。'
+    else:
+        user_form = UserForm()
+
+    return render(request, 'registration.html', {'user_form': user_form, 'error_message': error_message})
+
 
 """return render(request, 'registration.html', context={
     'user_form': user_form,
@@ -62,7 +76,7 @@ def register(request):
 })"""
 
 
-def user_login(request):
+"""def user_login(request):
     login_form = LoginForm(request.POST or None)
     if login_form.is_valid():
         username = login_form.cleaned_data.get('username')
@@ -78,7 +92,42 @@ def user_login(request):
             return HttpResponse('ユーザーが存在しません')
     return render(request, 'login.html', context={
     'login_form': login_form
-})
+})"""
+
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+
+from django.shortcuts import redirect
+
+from django.shortcuts import redirect
+
+def user_login(request):
+    if request.method == 'POST':
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            username = login_form.cleaned_data.get('username')
+            password = login_form.cleaned_data.get('password')
+            if password:
+                user = authenticate(username=username, password=password)
+                if user:
+                    login(request, user)
+                    return redirect('index')
+                else:
+                    error_message = 'ユーザーが存在しません'
+            else:
+                error_message = 'パスワードを入力してください'
+        else:
+            error_message = 'ユーザー名を入力してください'
+    else:
+        login_form = LoginForm()
+        error_message = None
+
+    return render(request, 'login.html', context={
+        'login_form': login_form,
+        'error_message': error_message
+    })
 
 @login_required
 def user_logout(request):
@@ -97,10 +146,18 @@ def post_info (request):
 
 from django.shortcuts import render, get_object_or_404
 
+from django.shortcuts import render
+from .models import PostInfo, Good
+
 def index(request):
-    post_infos = PostInfo.objects.all()  # すべての postInfo レコードを取得
-    genres_all = Genre.objects.all()#ジャンルタイトル一覧
-    return render(request, 'index.html', {'post_infos': post_infos, 'genres_all': genres_all})
+    post_infos = PostInfo.objects.all()
+    genres_all = Genre.objects.all() # ジャンルタイトル一覧
+    good_counts = {}
+    for post_info in post_infos:
+        good_counts[post_info.id] = Good.objects.filter(post_info_id=post_info.id).count()
+
+    return render(request, 'index.html', {'post_infos': post_infos, 'genres_all': genres_all, 'good_counts': good_counts})
+
 
 #投稿へのコメント
 def post_info_detail(request, post_info_id):
