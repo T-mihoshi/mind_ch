@@ -7,13 +7,22 @@
     <div><h2>タイトル</h2> {{ post_info.post_title }}</div>
     <div id="post_content">{{ post_info.post_content }}</div>
     <div>
-    <form action="{% url 'good_toggle' post_info.id %}" method="post">
     {% if user.is_authenticated %}
+    <form action="{% url 'good_toggle' post_info.id %}" method="post">
         {% csrf_token %}
-        <button class="submitbtn" type="submit">いいね☆</button>
-    {% endif %}
-    <span class="red">♥</span>{{ good_count }}
+        <div class="good_box">
+            <button class="good_hart" type="submit">
+                <div style="margin-bottom:7px; font-size: 20px;">♥</div>
+            </button>
+            <div style="margin-left: 10px; font-size: 20px;">{{ good_count }}</div>
+        </div>
     </form>
+    {% else %}
+        <div class="good_box">
+            <div style="margin-bottom:7px; font-size: 20px;">♥</div>
+            <div>{{ good_count }}</div>
+        </div>
+    {% endif %}
 
     <form method="post" action="{% url 'post_info_detail' post_info.id %}">
         {% csrf_token %}

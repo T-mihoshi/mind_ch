@@ -1,24 +1,28 @@
+<!-- login.html -->
+
 {% extends "base.html" %}
 {% block content %}
 <h1>ログイン画面</h1>
 
-{% if error_message %}
-<p>{{ error_message }}</p>
+{% if form.errors %}
+<p>エラーが発生しました。再度入力してください。</p>
 {% endif %}
 
-<form method="POST">
-    {% csrf_token %}
-    <table>
-        <tr class="form_table">
-            <th>名前</th><td>{{login_form.username}}</td>
-        </tr>
-        <tr class="form_table">
-            <th>パスワード</th><td>{{login_form.password}}</td>
-        </tr>
-    </table>
-    <div class="login_btn"><input class="submitbtn" type="submit" value="ログイン"></div>
+<form method="post">
+  {% csrf_token %}
+  <table>
+    <tr class="form_table">
+      <th><label for="id_username">ユーザー名:</label></th>
+      <td>{{ form.username }}</td>
+    </tr>
+    <tr class="form_table">
+      <th><label for="id_password">パスワード:</label></th>
+      <td>{{ form.password }}</td>
+    </tr>
+  </table>
+  <div class="login_btn">
+    <button type="submit">ログイン</button>
+  </div>
 </form>
-
-<p><a href="{% url 'password_reset' %}">パスワードを忘れた場合</a></p>
 
 {% endblock %}

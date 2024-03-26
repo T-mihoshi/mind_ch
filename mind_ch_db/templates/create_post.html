@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-{% csrf_token %}
 <main>
 <section>
     <h2>投稿をしよう！</h2>
     <form class="create_post" method="post">
-        
+        {% csrf_token %}
         <table>
             <tr>
                 <th>ジャンル</th><td>{{form.genre_id}}</td>
@@ -17,7 +16,9 @@
                 <th>テキスト</th><td>{{form.post_content}}</td>
             </tr>
         </table>
-        <button class="submitbtn" type="submit">投稿</button>
+    <div class="center">
+        <button class="submitbtn" style="margin-top: 20px;" type="submit">投稿</button>
+    </div>
     </form>
 </section>
 

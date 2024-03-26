@@ -1,14 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
+<!DOCTYPE html>
+
 <body>
+    
+    
     <h1>メモ一覧</h1>
-    <ul>
+    <ul class="memos_list">
         {% csrf_token %}
         {% for memo in memoss %}
-            <li><a href="{% url 'memo_detail' memo.id %}">{{ memo.title }}</a></li>
+            <li class="memos_item"><a href="{% url 'memo_detail' memo.id %}" class="memo_link">{{ memo.title }}</a></li>
         {% endfor %}
     </ul>
-    <a href="{% url 'memo_create' %}">新規メモ作成</a>
+    
+    <div class="center">
+        <a href="{% url 'memo_create' %}" class="submitbtn" id="memo_del">新規メモ作成</a>
+    </div>
 </body>
 </html>
 

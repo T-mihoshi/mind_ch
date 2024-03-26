@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from django.urls import path, include
-from .views import index, post_info_detail, good_list
 
 from django.contrib.auth import views as auth_views
 
@@ -15,7 +14,6 @@ urlpatterns = [
     path('comment', views.comment, name='comment'),
     path('good_list', views.good_list, name='good_list'),
     path('id_pass', views.id_pass, name='id_pass'),
-    path('', views.index, name='index'),
     path('my_posts', views.my_posts, name='my_posts'),
     path('password_modifying', views.password_modifying, name='password_modifying'),
     path('post', views.create_post, name='create_post'),
@@ -23,11 +21,12 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('registration', views.registration, name='registration'),
     path('register', views.register, name='register'),
-    path('user_login', views.user_login, name='user_login'),
+    path('login/', views.login_view, name='login'),
+    #path('user_login', views.user_login, name='user_login'),
     path('user_logout', views.user_logout, name='user_logout'),
     path('info', views.info, name='info'),
-    path('', index, name='index'),
-    path('post-info/<int:post_info_id>/', post_info_detail, name='post_info_detail'),
+    path('', views.index, name='index'),
+    path('post-info/<int:post_info_id>/', views.post_info_detail, name='post_info_detail'),
 
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),

@@ -13,6 +13,14 @@ table th, tr{
     margin: 10px;
 }
 
+th{
+    margin-top: 15px;
+}
+
+tr{
+    margin-top: 15px;
+}
+
 header{
     width: auto;
     height: 55px;
@@ -78,6 +86,14 @@ p{
     text-align: center;
 }
 
+.bottom_0{
+    margin-bottom: 0;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+}
 
 .back_img{
     background-image: url('../img/line1.png');
@@ -140,6 +156,61 @@ p{
 }
 
 
+.memos_list {
+    list-style-type: none; /* リストのマーカーをなくす */
+    padding: 0; /* パディングをなくす */
+    text-align: center; /* テキストを中央に寄せる */
+}
+
+/* リスト項目のスタイル */
+.memos_item {
+    margin-bottom: 10px; /* 下の余白を設定 */
+    text-align: center;
+}
+
+/* リンクのスタイル */
+.memo_link {
+    color: #4e4e4e; /* リンクの色を設定 */
+    text-align: center;
+}
+
+.memo_create_link{
+    margin-left: 30%;
+    margin-top: 30px;
+    text-decoration: none; /* 下線をなくす */
+    color: #0054ad; /* リンクの色を設定 */
+    text-align: center;
+}
+
+.memo_content{
+    padding-top: 15px;
+    padding-bottom: 40px;
+}
+
+#memo_del{
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 30px;
+    height: 22px;
+    width: 100px;
+}
+
+.create_time{
+    display: flex;
+    justify-content: end;
+    color: #6b6b6b;
+    font-size: 12px;
+
+}
+
+
+ホバー時のスタイル */
+.memo_link:hover {
+    text-decoration: underline; /* 下線を表示 */
+}
+
+
 .submitbtn{
     width: 150px;
     height: 40px;
@@ -193,8 +264,22 @@ p{
     max-width: 600px;
     margin-top: 10px;
     margin-bottom: 20px;
+    margin-right: 20px;
     padding: 5px;
     background-color: #f8f8f8;
+}
+
+.good_box{
+    display: flex;
+    width: 25px;
+    height: 25px;
+}
+
+.good_hart{
+    width: 25px;
+    height: 25px;
+    font-size: 29px;
+    color: rgb(255, 108, 108);
 }
 
 .red{
@@ -243,4 +328,9 @@ table{
 
 .all_genre div{
     width: auto;
+}
+
+.content_item{
+    width: 50%;
+    min-width: 320px;
 }

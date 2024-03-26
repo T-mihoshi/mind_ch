@@ -153,3 +153,6 @@ EMAIL_HOST = 'smtp.gmail.com'   # あなたのSMTPサーバーのホスト名
 EMAIL_PORT = 587    # TLS接続に使用するポート番号
 EMAIL_USE_TLS = True    # TLSを使用するかどうか
 EMAIL_HOST_USER = 'milk.cocoa.000115@gmail.com'
+
+LOGIN_URL = '/screen_speak/login/'
+LOGIN_REDIRECT_URL = '/'

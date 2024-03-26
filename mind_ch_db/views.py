@@ -75,7 +75,7 @@ def register(request):
     'success_message': '登録が成功しました。',  # 必要に応じて
 })"""
 
-
+"""
 def user_login(request):
     login_form = LoginForm(request.POST or None)
     if login_form.is_valid():
@@ -91,6 +91,18 @@ def user_login(request):
         else:
             return HttpResponse('ユーザーが存在しません')
     return render(request, 'login.html', context={'login_form': login_form})
+"""
+# views.py
+
+from django.contrib.auth.views import LoginView
+from django.urls import reverse
+
+class CustomLoginView(LoginView):
+    template_name = 'login.html'  # ログイン画面のテンプレート
+    redirect_authenticated_user = True  # ログイン済みのユーザーをリダイレクトするかどうか
+    success_url = '/profile/' # ログイン成功時のリダイレクト先
+
+login_view = CustomLoginView.as_view()
 
 @login_required
 def user_logout(request):

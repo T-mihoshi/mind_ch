@@ -2,22 +2,20 @@
 {% block content %}
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>新規メモ作成</title>
-</head>
-<body>
+
+<main class="center">
+    <div>
     <h1>新規メモ作成</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="id_title">タイトル:</label><br>
-        <input type="text" id="id_title" name="title"><br>
-        <label for="id_content">内容:</label><br>
-        <textarea id="id_content" name="content"></textarea><br>
-        <button class="submitbtn" type="submit">作成</button>
-    </form>
-</body>
-</html>
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_title">タイトル:</label><br>
+            <input type="text" id="id_title" name="title"><br>
+            <div class="memo_content">
+                <label for="id_content">内容:</label><br>
+                <textarea id="id_content" name="content"></textarea><br>
+            </div>
+            <button class="submitbtn" type="submit">作成</button>
+        </form>
+    </div>
+</main>
 {% endblock %}
