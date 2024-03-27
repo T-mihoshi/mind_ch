@@ -1,16 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
 <main>
-    <h2>投稿編集</h2>
-    <form class="edit_form" method="post">
-        {% csrf_token %}
-        <p class="edit_genre">ジャンル</p>{{ form.genre_id }}
-        <p>タイトル</p>{{ form.post_title }}
-        <p>テキスト</p>{{ form.post_content }}
+    <section>
+        <h1>投稿編集</h1>
+        <form class="create_post" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>ジャンル</th><td>{{form.genre_id}}</td>
+                </tr>
+                <tr>
+                    <th>タイトル</th><td>{{form.post_title}}</td>
+                </tr>
+                <tr>
+                    <th>テキスト</th><td>{{form.post_content}}</td>
+                </tr>
+            </table>
         <div class="center">
-            <button class="submitbtn" type="submit">変更を保存</button>
+            <button class="submitbtn" style="margin-top: 20px;" type="submit">変更を保存</button>
         </div>
-    </form>
+        </form>
+    </section>
 </main>
 </html>
 
