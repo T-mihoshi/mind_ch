@@ -5,37 +5,40 @@
 <main class="back_img">
     <h1 class="mind_ch_title">潜在意識チャンネル</h1>
     <div class="login_name_box">
-        {% if user.is_authenticated %}
-        <div>ようこそ！</div><div class="login_name">{{ user.username }}</div><div>さん!</div>
-        {% endif %}
+        <div class="right">
+            </div>
+            {% if user.is_authenticated %}
+            <div>ようこそ！</div><div class="login_name">{{ user.username }}</div><div>さん!</div>
+            {% endif %}
+        </div>
     </div>
     <p>ここは潜在意識を使ってあらゆる認識の変更を行ってきた人達の集まるサイトです。</p>
     <p>潜在意識を活用してあらゆる分野で目標を達成してきた人達の今まで実践してきた行動や考え方、</p>
     <p>その成果などの情報を交換しあい、知識を深めあいながら目標を達成していく事ができます。</p>
     <p>潜在意識を知らない人は知るきっかけに、知っている人は使いこなせるようになって欲しいです。</p>
     <p>ここに来てくれた皆さんの人生がより豊かになっていくことを願っています😊</p>
-    <!-- <p>テストデータ：竹花美星：takehana:milk.cocoa.000115@gmail.com</p> -->
-    {% for post_info in post_infos %}
-    <div class="post_info">
-        <div><a href="{% url 'post_info_detail' post_info.id %}">{{ post_info.post_title }}</a></div>
-        
-        <!-- その他の情報を表示 -->
+    
+    <div>
+        <div id="genre_title">
+            <span style="color: rgb(63, 63, 63);">（ジャンル別に投稿を見るなら</span>
+            <a href="{% url 'genre_choice' %}">こちら</a>
+            <span style="color: rgb(63, 63, 63);">）</span>
+        </div>
     </div>
-    {% endfor %}
+    <!-- <p>テストデータ：竹花美星：takehana:milk.cocoa.000115@gmail.com</p> -->
+    <div class="flex_column">
+        <h1>みんなの投稿</h1>
+        
+        {% for post_info in post_infos %}
+            <div class="post_info">
+                <div class="center"><a href="{% url 'post_info_detail' post_info.id %}">{{ post_info.post_title }}</a></div>
+        <!-- その他の情報を表示 -->
+            </div>
+        {% endfor %}
+    </div>
     <div class="neko_center">
         <img src="{% static 'img/point_l.png' %}" alt= "ロゴ" width="100" height="90">
     </div>
-
-    <h3 class="genre_title">ジャンル別に投稿を見るのはこちら！</h3>
-    <section class="all_genre">
-    {% for genre in genres_all %}
-        <div>
-            <a href="{% url 'genre_list' genre.id %}">
-                #{{ genre.genre_name }}
-            </a>
-        </div>
-    {% endfor %}
-    </section>
 </main>
 
 {% endblock %}

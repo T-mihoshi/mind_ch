@@ -43,6 +43,7 @@ urlpatterns = [
     path('genre_list/<int:genre_id>/', views.genre_list, name='genre_list'),
     path('post_list', views.post_list, name='post_list'),
     path('posts/<int:post_id>/edit/', views.posts_edit, name='posts_edit'),
+    path('genre_choice/', views.genre_choice, name='genre_choice'),
 ]
 
 

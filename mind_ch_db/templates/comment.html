@@ -1,43 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h1>投稿内容</h1>
-<!-- post -->
-<div class="post_info">
-    <div><h2>タイトル</h2> {{ post_info.post_title }}</div>
-    <div id="post_content">{{ post_info.post_content }}</div>
-    <div>
-    {% if user.is_authenticated %}
-    <form action="{% url 'good_toggle' post_info.id %}" method="post">
-        {% csrf_token %}
-        <div class="good_box">
-            <button class="good_hart" type="submit">
-                <div style="margin-bottom:7px; font-size: 20px;">♥</div>
-            </button>
-            <div style="margin-left: 10px; font-size: 20px;">{{ good_count }}</div>
+<main>
+    <h1>投稿内容</h1>
+    <!-- post -->
+    <div class="post_info">
+        <div><h2>{{ post_info.post_title }}</h2>
+        <div id="post_content">{{ post_info.post_content }}</div>
+        <div>
+        {% if user.is_authenticated %}
+        <form action="{% url 'good_toggle' post_info.id %}" method="post">
+            {% csrf_token %}
+            <div class="good_box">
+                <button class="good_hart" type="submit">
+                    <div style="margin-bottom:7px; margin-right: 10px; font-size: 20px;">♥</div>
+                </button>
+                <div style="margin-left: 10px; font-size: 20px;">{{ good_count }}</div>
+            </div>
+        </form>
+        {% else %}
+            <div class="good_box">
+                <div  class="red" style="margin-bottom:7px; margin-right: 10px; font-size: 20px;">♥</div>
+                <div>{{ good_count }}</div>
+            </div>
+        {% endif %}
+    
+        <form method="post" action="{% url 'post_info_detail' post_info.id %}">
+            {% csrf_token %}
+            <div class="comment_add">{{ form.comment }}</div>
+            <div><button class="submitbtn" type="submit">コメントする</button></div>
+        </form>
+        <h3>みんなのコメント</h3>
+        {% for comment in comments %}
+            
+            <div class="comment_info">{{ comment.comment }}</div>
+    
+        {% endfor %}
         </div>
-    </form>
-    {% else %}
-        <div class="good_box">
-            <div style="margin-bottom:7px; font-size: 20px;">♥</div>
-            <div>{{ good_count }}</div>
-        </div>
-    {% endif %}
-
-    <form method="post" action="{% url 'post_info_detail' post_info.id %}">
-        {% csrf_token %}
-        <div class="comment_add">{{ form.comment }}</div>
-        <div><button class="submitbtn" type="submit">コメントする</button></div>
-    </form>
-    <h3>みんなのコメント</h3>
-    {% for comment in comments %}
-        
-        <div class="comment_info">{{ comment.comment }}</div>
-
-    {% endfor %}
-    </div>
-    <!-- その他のフィールドを表示 -->
-</div>
-
+        <!-- その他のフィールドを表示 -->
+    </div>    
+</main>
 {% endblock %}
 

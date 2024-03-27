@@ -25,23 +25,24 @@ header{
     width: auto;
     height: 55px;
     background-color: rgb(250, 209, 236);
+    padding-top: 13px;
 }
 
 nav {
     background-color: #ffccff; /* ナビゲーションバーの背景色 */
-    padding: 10px 20px; /* ナビゲーションバーの内側の余白 */
 }
 
 nav a {
     color: #ff0066; /* ナビゲーションリンクのテキスト色 */
     text-decoration: none; /* ナビゲーションリンクの下線を削除 */
-    margin-right: 20px; /* ナビゲーションリンク間の水平方向のスペース */
     transition: color 0.3s; /* ナビゲーションリンクのテキスト色が変わるアニメーション */
     font-family: 'Nunito', cursive; /* 可愛らしいフォントを指定 */
+    font-size: 15px;
 }
 
+
 nav a:hover {
-    color: #ff3399; /* ナビゲーションリンクのホバー時のテキスト色 */
+    color: #f5a8ce; /* ナビゲーションリンクのホバー時のテキスト色 */
 }
 
 
@@ -95,6 +96,20 @@ p{
     justify-content: center;
 }
 
+.center_2{
+    height: 40px;
+    width: 150px;
+    display: flex;
+    justify-content: start;
+    padding-left: 0;
+}
+
+
+.flex_column{
+    display: flex;
+    flex-direction: column;
+}
+
 .back_img{
     background-image: url('../img/line1.png');
     background-size: cover;
@@ -114,8 +129,13 @@ p{
 }
 
 
-.genre_title{
-    text-align: center;
+#genre_title{
+    text-align: end;
+    font-size: 14px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: color#919191;
 }
 
 
@@ -130,7 +150,6 @@ p{
 
 .post_info{
     margin-bottom: 40px;
-    margin-left: 20%;
 }
 
 .comment_add{
@@ -164,7 +183,7 @@ p{
 
 /* リスト項目のスタイル */
 .memos_item {
-    margin-bottom: 10px; /* 下の余白を設定 */
+    margin-bottom: 20px; /* 下の余白を設定 */
     text-align: center;
 }
 
@@ -197,6 +216,7 @@ p{
 }
 
 .create_time{
+    margin-right: 10px;
     display: flex;
     justify-content: end;
     color: #6b6b6b;
@@ -303,6 +323,7 @@ p{
 table{
     display: flex;
     justify-content: center;
+    border-spacing: 0px 20px;
 }
 
 .form_table{

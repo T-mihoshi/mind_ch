@@ -8,22 +8,21 @@
     <title>Post List</title>
 </head>
 <body>
-    <h2>自分の投稿一覧</h2>
-    <ul>
+    <h1>自分の投稿一覧</h1>
+    <div>
         {% for post in posts %}
         <div class="post_list">
             <a href="{% url 'posts_edit' post.id %}">
-                <div class="post_list_title">
-                    <li>{{ post.post_title }}</li>
-                    <p><span class="red">♥</span><span class="good_count">{{ post.reaction_count }}</span></p>
+                <div class="post_list_title center">
+                    <div>{{ post.post_title }}</div>
                 </div>
                 <p>{{ post.post_content }}</p>
             </a>
         </div>
         {% empty %}
-            <li>No posts available.</li>
+            <div>まだ投稿をしていません！</div>
         {% endfor %}
-    </ul>
+    </div>
 </body>
 </html>
 

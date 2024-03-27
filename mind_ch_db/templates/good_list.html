@@ -2,14 +2,22 @@
 {% block content %}
 
 <main>
-    <h1>お気に入り</h1>
-    <section class="">
-        <!-- <h2>{{ post_info.post_title }}</h2> -->
-        {% for post_info in post_info_good %}
-            <p>{{ post_info.post_title }}</p>
-            <p>{{ post_info.post_content }}</p>
+    <h1>いいね一覧</h1>
+
+    <div>
+        {% for post in post_info_good %}
+        <div class="post_list">
+            <a href="{% url 'posts_edit' post.id %}">
+                <div class="post_list_title center">
+                    <div>{{ post.post_title }}</div>
+                </div>
+                <p>{{ post.post_content }}</p>
+            </a>
+        </div>
+        {% empty %}
+            <div>あなたのいいねはありません</div>
         {% endfor %}
-    </section>
+    </div>
 </main>
 
 <!-- {{good_list_show}} -->

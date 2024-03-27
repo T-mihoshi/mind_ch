@@ -2,6 +2,15 @@
 {% block content %}
 <h1>ジャンル別投稿一覧</h1>
 {% for post_info in genres %}
-    <p>{{ post_info.post_title }}</p>
+    <div class="post_info">
+        <p><a href="{% url 'post_info_detail' post_info.id %}">{{ post_info.post_title }}</a></p>
+        
+        <!-- その他の情報を表示 -->
+    </div>
 {% endfor %}
+{% if not genres %}
+    <div class="center">
+        <h3>このジャンルではまだ投稿されていません</h3>
+    </div>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h1>見たいジャンルを選択</h1>
+    <section class="all_genre">
+        <div class="flex_column">
+        {% for genre in genres_all %}
+            <a href="{% url 'genre_list' genre.id %}" style="font-size: 20px; margin: 10px;">
+                <div>#{{ genre.genre_name }}</div>
+            </a>
+        {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

@@ -125,14 +125,16 @@ from django.shortcuts import render
 from .models import PostInfo, Good
 
 def index(request):
-    post_infos = PostInfo.objects.all()
-    genres_all = Genre.objects.all() # ジャンルタイトル一覧
+    post_infos = PostInfo.objects.all().order_by('-create_at')
     good_counts = {}
     for post_info in post_infos:
         good_counts[post_info.id] = Good.objects.filter(post_info_id=post_info.id).count()
+    return render(request, 'index.html', {'post_infos': post_infos, 'good_counts': good_counts})
 
-    return render(request, 'index.html', {'post_infos': post_infos, 'genres_all': genres_all, 'good_counts': good_counts})
-
+#ジャンル表示画面　genre_choice
+def genre_choice(request):
+    genres_all = Genre.objects.all() # ジャンルタイトル一覧
+    return render(request, 'genre_choice.html', {'genres_all': genres_all})
 
 #投稿へのコメント
 def post_info_detail(request, post_info_id):
@@ -158,7 +160,7 @@ def post_info_detail(request, post_info_id):
 
 #投稿一覧
 def post_list(request):
-    posts = PostInfo.objects.all()
+    posts = PostInfo.objects.all().order_by('-create_at')
     return render(request, 'post_list.html', {'posts': posts})
 
 
@@ -187,7 +189,7 @@ def good_toggle(request, post_info_id):
 #メモ機能
 
 def memo_list(request):
-    memoss = Memo.objects.all()
+    memoss = Memo.objects.all().order_by('-create_at')
     return render(request, 'memo_list.html', {'memoss': memoss})
 
 def memo_detail(request, memo_id):
@@ -226,13 +228,13 @@ def memo_delete(request, memo_id):
 #いいね一覧
 def good_list(request):
     user = request.user
-    goods = Good.objects.filter(user_id=user).select_related('post_info_id')
+    goods = Good.objects.filter(user_id=user).select_related('post_info_id').order_by('-create_at')
     post_info_good = [good.post_info_id for good in goods]
     return render(request, 'good_list.html', {'post_info_good': post_info_good})
 
 #ジャンル別投稿表示
 def genre_list(request, genre_id):
-    genres = PostInfo.objects.filter(genre_id=genre_id).all()
+    genres = PostInfo.objects.filter(genre_id=genre_id).all().order_by('-create_at')
     return render(request, 'genre_list.html', {'genres': genres})
 
 #投稿する
