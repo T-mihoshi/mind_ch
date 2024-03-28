@@ -37,6 +37,8 @@ class Post(models.Model):
 
 
 class PostInfo(models.Model):
+    user_id = models.ForeignKey(
+        User, on_delete=models.SET_NULL,null=True)
     genre_id = models.ForeignKey(
         'genre', on_delete=models.SET_NULL,null=True)
     post_title = models.CharField(max_length=50)
@@ -48,7 +50,7 @@ class PostInfo(models.Model):
 
 class Comment(models.Model):
     Post_info_id = models.ForeignKey(
-        'postinfo', on_delete=models.CASCADE)
+        'postinfo', on_delete=models.SET_NULL,null=True)
     comment = models.CharField(max_length=300)
     reaction_count = models.IntegerField(default=0)
     create_at = models.DateTimeField(default=timezone.datetime.now)
@@ -65,6 +67,8 @@ class Genre(models.Model):
 
 
 class Memo(models.Model):
+    user_id = models.ForeignKey(
+        User, on_delete=models.SET_NULL,null=True)
     title = models.CharField(max_length=100)
     content = models.TextField()
     create_at = models.DateTimeField(default=timezone.datetime.now)

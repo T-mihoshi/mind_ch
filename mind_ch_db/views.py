@@ -7,7 +7,7 @@ from .models import Memo, Genre
 from .forms import MemoForm
 from .forms import PostInfoForm
 from .forms import CommentForm
-
+from .models import PostInfo
 
 # Create your views here.
 
@@ -21,6 +21,15 @@ def id_pass(request):
     return render(request, 'id_pass.html')
 def index(request):
     return render(request, 'index.html')
+
+@login_required
+def post_list(request):
+    # ログインユーザーに関連する投稿のみを取得
+    user_posts = PostInfo.objects.filter(user=request.user)
+    print(user_posts)  # コンソールに投稿が正しく取得されているか確認
+    return render(request, 'post_list.html', {'posts': user_posts})
+
+
 def my_posts(request):
     return render(request, 'my_posts.html')
 def password_modifying(request):
@@ -68,6 +77,36 @@ def register(request):
 
     return render(request, 'registration.html', {'user_form': user_form, 'error_message': error_message})
 
+from django.contrib.auth.hashers import make_password
+
+def register(request):
+    error_message = ""
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            # パスワードをハッシュ化
+            password = make_password(user_form.cleaned_data['password'])
+            # ハッシュ化したパスワードを含めてユーザーを作成
+            user = user_form.save(commit=False)
+            user.password = password
+            user.save()
+            login(request, user)  # ユーザーをログインさせる
+            return redirect('index')
+        else:
+            # エラーメッセージの生成
+            if 'password1' in user_form.errors:
+                error_message = 'パスワードは8文字以上で入力してください。'
+            elif 'username' in user_form.errors:
+                error_message = '存在するユーザーです。'
+            else:
+                error_message = '入力が正しくありません。'
+    else:
+        user_form = UserForm()
+
+    return render(request, 'registration.html', {'user_form': user_form, 'error_message': error_message})
+
+
 
 """return render(request, 'registration.html', context={
     'user_form': user_form,
@@ -95,12 +134,12 @@ def user_login(request):
 # views.py
 
 from django.contrib.auth.views import LoginView
-from django.urls import reverse
-
+from django.urls import reverse_lazy
+#customログイン
 class CustomLoginView(LoginView):
     template_name = 'login.html'  # ログイン画面のテンプレート
     redirect_authenticated_user = True  # ログイン済みのユーザーをリダイレクトするかどうか
-    success_url = '/profile/' # ログイン成功時のリダイレクト先
+    success_url = reverse_lazy('profile') # ログイン成功時のリダイレクト先
 
 login_view = CustomLoginView.as_view()
 
@@ -188,13 +227,19 @@ def good_toggle(request, post_info_id):
 
 #メモ機能
 
+    good_count = Good.objects.filter(post_info_id=post_info_id).count()
 def memo_list(request):
-    memoss = Memo.objects.all().order_by('-create_at')
+    memoss = Memo.objects.filter(user_id=request.user.id).order_by('-create_at')
     return render(request, 'memo_list.html', {'memoss': memoss})
 
 def memo_detail(request, memo_id):
-    memo = get_object_or_404(Memo, pk=memo_id)
+    memo = get_object_or_404(Memo, pk=memo_id, user_id=request.user)
+    if request.method == 'POST':
+        memo.delete()
+        return redirect('memo_list')  # メモ一覧ページへリダイレクト
+    
     return render(request, 'memo_detail.html', {'memo': memo})
+
 
 def memo_create(request):
     if request.method == 'POST':

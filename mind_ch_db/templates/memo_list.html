@@ -7,10 +7,18 @@
     
     <h1>メモ一覧</h1>
     <ul class="memos_list">
+    {% if memoss %}
         {% csrf_token %}
         {% for memo in memoss %}
-            <li class="memos_item"><a href="{% url 'memo_detail' memo.id %}" class="memo_link">{{ memo.title }}</a></li>
+            <li class="memos_item">
+                <a href="{% url 'memo_detail' memo.id %}" class="memo_link">{{ memo.title }}</a>
+            </li>
         {% endfor %}
+    {% else %}
+        <div class="center">
+            <div>まだメモを作成していません</div>
+        </div>
+    {% endif %}
     </ul>
     
     <div class="center">

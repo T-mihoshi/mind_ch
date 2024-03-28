@@ -133,6 +133,13 @@ p{
     justify-content: center;
 }
 
+.login_botton{
+    margin-top: 30px;
+    font-size: 16px;
+    height: 44px;
+    font-weight: bold;
+}
+
 
 #genre_title{
     text-align: center;
@@ -256,6 +263,7 @@ p{
     color: #fff;
     padding: 10px 30px;
     font-size: 13px;
+    font-family: sans-serif;
 }
 
 .submitbtn:after{
@@ -304,6 +312,10 @@ p{
     background-color: #f8f8f8;
 }
 
+.sans-serif{
+    font-family: sans-serif;
+}
+
 .good_box{
     display: flex;
     width: 25px;
@@ -319,7 +331,10 @@ p{
 
 .red{
     color: #ff5757;
-    font-size: 25px;
+}
+
+#red{
+    color: #ff5757;
 }
 
 .good_count{
@@ -339,6 +354,10 @@ table{
     display: flex;
     justify-content: center;
     border-spacing: 0px 20px;
+}
+
+#sakusei{
+    font-size: 16px;
 }
 
 .form_table{
