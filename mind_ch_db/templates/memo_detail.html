@@ -10,11 +10,14 @@
 </head>
 <body>
     <h1 class="bottom_0">{{ memo.title }}</h1>
-    <div class="create_time">
-        <p>作成日時: {{ memo.create_at }}</p>
-    </div>
     <div class="center">
-        <div class="content_item">{{ memo.content }}</div>
+        <div class="content_item" style="max-width: 400px;">
+            <div style="display: flex; justify-content: end; max-width: 400px; margin-left: 20px; font-size: 11px; color: rgb(92, 90, 90);">
+                <p>作成日時: {{ memo.create_at }}</p>
+            </div>
+            <div>{{ memo.content }}</div>
+
+        </div>
     </div>
     <!-- <a href="{% url 'memo_edit' memo.id %}">編集</a> -->
     <div class="center">

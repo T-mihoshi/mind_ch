@@ -238,6 +238,7 @@ p{
 }
 
 .create_time{
+    max-width: 400px;
     margin-right: 10px;
     display: flex;
     justify-content: end;
