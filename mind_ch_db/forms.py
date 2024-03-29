@@ -30,11 +30,25 @@ class LoginForm(forms.Form):
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
    
    
+
 class MemoForm(forms.ModelForm):
     class Meta:
         model = Memo
         fields = ['title', 'content']
-   
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # ビューから渡されたユーザーオブジェクトを取得
+        super(MemoForm, self).__init__(*args, **kwargs)
+        self.user = user  # ユーザーオブジェクトをインスタンス変数に保存
+
+    def save(self, commit=True):
+        memo = super().save(commit=False)  # コミットを保留したメモオブジェクトを取得
+        if self.user:
+            memo.user_id = self.user  # ユーザーをメモの user_id に設定
+        if commit:
+            memo.save()  # メモを保存
+        return memo
+
 
 class PostInfoForm(forms.ModelForm):
     class Meta:
@@ -43,7 +57,20 @@ class PostInfoForm(forms.ModelForm):
         widgets = {
             'post_title': forms.TextInput(attrs={'placeholder': '名前'})
         }
-    
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # ビューから渡されたユーザーオブジェクトを取得
+        super(PostInfoForm, self).__init__(*args, **kwargs)
+        self.user = user  # ユーザーオブジェクトをインスタンス変数に保存
+
+    def save(self, commit=True):
+        post = super().save(commit=False)  # コミットを保留した投稿オブジェクトを取得
+        if self.user:
+            post.user_id = self.user  # ユーザーを投稿の user_id に設定
+        if commit:
+            post.save()  # 投稿を保存
+        return post
+
 
 #投稿編集
 class PostInfoForm(forms.ModelForm):

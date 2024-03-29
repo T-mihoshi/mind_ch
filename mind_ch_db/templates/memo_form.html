@@ -4,21 +4,31 @@
 
 
 <main class="center">
-    <div>
-    <h1>新規メモ作成</h1>
-        <form method="post">
+    <section>
+        <h1>投稿編集</h1>
+        <form class="create_post" method="post">
             {% csrf_token %}
-            <label for="id_title">タイトル:</label><br>
-            <input type="text" id="id_title" name="title"><br>
-            <div class="memo_content">
-                <label for="id_content">内容:</label><br>
-                <textarea id="id_content" name="content"></textarea><br>
+            {% if error_message %}
+                <p class="red">{{ error_message }}</p>
+            {% endif %}
+            <table>
+                <tr>
+                    <th>タイトル</th><td>{{ form.title }}</td>
+                </tr>
+                <tr>
+                    <th>テキスト</th><td>{{ form.content }}</td>
+                </tr>
+            </table>
+            <div class="center">
+                <button class="submitbtn" style="margin-top: 20px; font-size: 16px; height: 44px; font-weight: bold;" type="submit">作成</button>
             </div>
-            <button class="submitbtn" type="submit" style="font-weight: bold; height: 44px; font-size: 28;"><span id="sakusei">作成</span></button>
         </form>
-        <div class="center_2">
-            <a href="{% url 'memo_list' %}" class="submitbtn" id="memo_del" style="text-align: center;">戻る</a>
-        </div>
-    </div>
+        
+        <div class="center">
+            <a href="{% url 'memo_list' %}">
+                <button class="submitbtn" style="margin-top: 20px; font-size: 16px; height: 44px; font-weight: bold;" type="submit">戻る</button>
+            </a>
+            </div>
+    </section>
 </main>
 {% endblock %}

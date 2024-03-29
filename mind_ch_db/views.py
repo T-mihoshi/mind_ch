@@ -22,14 +22,6 @@ def id_pass(request):
 def index(request):
     return render(request, 'index.html')
 
-@login_required
-def post_list(request):
-    # ログインユーザーに関連する投稿のみを取得
-    user_posts = PostInfo.objects.filter(user=request.user)
-    print(user_posts)  # コンソールに投稿が正しく取得されているか確認
-    return render(request, 'post_list.html', {'posts': user_posts})
-
-
 def my_posts(request):
     return render(request, 'my_posts.html')
 def password_modifying(request):
@@ -199,7 +191,7 @@ def post_info_detail(request, post_info_id):
 
 #投稿一覧
 def post_list(request):
-    posts = PostInfo.objects.all().order_by('-create_at')
+    posts = PostInfo.objects.filter(user_id=request.user.id).order_by('-create_at')
     return render(request, 'post_list.html', {'posts': posts})
 
 
@@ -225,8 +217,8 @@ def good_toggle(request, post_info_id):
         good.delete()
     return redirect('post_info_detail', post_info_id=post_info_id)
 
-#メモ機能
 
+#メモ機能
     good_count = Good.objects.filter(post_info_id=post_info_id).count()
 def memo_list(request):
     memoss = Memo.objects.filter(user_id=request.user.id).order_by('-create_at')
@@ -241,15 +233,25 @@ def memo_detail(request, memo_id):
     return render(request, 'memo_detail.html', {'memo': memo})
 
 
+from django.shortcuts import render
+
+from django.shortcuts import render, redirect
+from .forms import MemoForm
+
+#メモ作成機能
 def memo_create(request):
+    error_message = None
     if request.method == 'POST':
-        form = MemoForm(request.POST)
+        form = MemoForm(request.POST, user=request.user)  # ユーザーオブジェクトをフォームに渡す
         if form.is_valid():
             form.save()
             return redirect('memo_list')
+        else:
+            error_message = "未記入の項目があります"
     else:
-        form = MemoForm()
-    return render(request, 'memo_form.html', {'form': form})
+        form = MemoForm(user=request.user)  # ユーザーオブジェクトをフォームに渡す
+    return render(request, 'memo_form.html', {'form': form, 'error_message': error_message})
+
 
 def memo_edit(request, memo_id):
     memo = get_object_or_404(Memo, pk=memo_id)
@@ -283,16 +285,46 @@ def genre_list(request, genre_id):
     return render(request, 'genre_list.html', {'genres': genres})
 
 #投稿する
+"""@login_required
 def create_post(request):
+    error_message = None
     if request.method == 'POST':
-        form = PostInfoForm(request.POST)
+        form = PostInfoForm(request.POST, user=request.user)  # ユーザーオブジェクトをフォームに渡す
         if form.is_valid():
             form.save()
             return redirect('post_list')  # 投稿一覧ページにリダイレクト
+        else:
+            error_message = "未記入の項目があります"
+    else:
+        form = PostInfoForm(user=request.user)  # ユーザーオブジェクトをフォームに渡す
+    return render(request, 'create_post.html', {'form': form, 'error_message': error_message})
+"""
+
+@login_required
+def create_post(request):
+    error_message = None
+    if request.method == 'POST':
+        form = PostInfoForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user_id = request.user  # ユーザー情報を直接フィールドに代入
+            post.save()
+            return redirect('post_list')
+        else:
+            error_message = "未記入の項目があります"
     else:
         form = PostInfoForm()
-    return render(request, 'create_post.html', {'form': form})
+    return render(request, 'create_post.html', {'form': form, 'error_message': error_message})
 
+
+
+
+
+
+
+
+
+# forms
 """
 from .models import Good
 @login_required
