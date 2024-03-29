@@ -7,12 +7,10 @@
     <div>
         {% for post in post_info_good %}
         <div class="post_list">
-            <a href="{% url 'posts_edit' post.id %}">
                 <div class="post_list_title center">
                     <div>{{ post.post_title }}</div>
                 </div>
                 <p>{{ post.post_content }}</p>
-            </a>
         </div>
         {% empty %}
             <div class="center"><p>あなたのいいねはありません</p></div>
